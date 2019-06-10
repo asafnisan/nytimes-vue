@@ -18,21 +18,6 @@
 import { mapGetters } from 'vuex';
 import CategoryListItem from './CategoryListItem.vue';
 
-const list = [
-  {
-    name: 'Category 1 more stuff to follow this field / more stuff to follow this field',
-  },
-  {
-    name: 'Category 2 more stuff to follow this field / more stuff to follow this field',
-  },
-  {
-    name: 'Category 3 more stuff to follow this field / more stuff to follow this field',
-  },
-  {
-    name: 'Category 4 more stuff to follow this field / more stuff to follow this field',
-  }
-];
-
 export default {
   name: 'CategoryList',
   components: {
@@ -42,11 +27,6 @@ export default {
     ...mapGetters([
       'categoryNamesList'
     ])
-  },
-  data() {
-    return {
-      categoryList: list,
-    }
   }
 }
 </script>

@@ -20,7 +20,7 @@ html, body {
 }
 
 #app {
-  height: 100%;
+  height: 3500px;
   display: flex;
   align-items: center;
   justify-content: center;
