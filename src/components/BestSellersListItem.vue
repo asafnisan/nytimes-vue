@@ -5,7 +5,7 @@
     </span>
     <h2 class="has-text-weight-bold">
       <router-link
-        :to="'/best-sellers/dynamic-category'">
+        :to="'/item-detail/dynamic-id'">
         Go to category best sellers
       </router-link>
       <span
@@ -13,14 +13,13 @@
           See list of best sellers 
       </span>
     </h2>
-    <p>{{ categoryItem.display_name }}</p>
+    <p>Placeholder value</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CategoryListItem',
-  props: ['categoryItem'],
+  name: 'BestSellersListItem',
 }
 </script>
 

@@ -5,9 +5,8 @@
         <i class="fa fa-2x fa-user-circle"></i>
       </div>
       <div class="product-list">
-        <div v-for="category in categoryNamesList" :key="category.list_name"
-          class="product-list--item">
-          <CategoryListItem :categoryItem="category"/>
+        <div class="product-list--item">
+          <BestSellersListItem />
         </div>
       </div>
     </div>
@@ -15,25 +14,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import CategoryListItem from './CategoryListItem.vue';
+import BestSellersListItem from './BestSellersListItem.vue';
 
 export default {
-  name: 'CategoryList',
+  name: 'BestSellersList',
   components: {
-    CategoryListItem,
-  },
-  computed: {
-    ...mapGetters([
-      'categoryNamesList'
-    ])
+    BestSellersListItem,
   }
 }
 </script>
 
 <style scoped>
 .box {
-  width: 700px;
+  width: 700px
 }
 
 .tag {
