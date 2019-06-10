@@ -1,37 +1,12 @@
 <template>
   <div id="app">
-    <CategoryList :categoryList="list"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import CategoryList from './components/CategoryList.vue'
-
-const list = [
-  {
-    name: 'Category 1',
-  },
-  {
-    name: 'Category 2',
-  },
-  {
-    name: 'Category 3',
-  },
-  {
-    name: 'Category 4',
-  }
-];
-
 export default {
   name: 'app',
-  components: {
-    CategoryList,
-  },
-  data() {
-    return {
-      list
-    }
-  }
 }
 </script>
 

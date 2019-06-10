@@ -6,7 +6,7 @@
           Add to Cart
       </span>
     </h2>
-    <p>{{ categoryItem }}</p>
+    <p>{{ categoryItem.name }}</p>
     <span class="has-text-primary has-text-weight-bold">
       <i class="fa fa-usd"></i> Static info
     </span>
