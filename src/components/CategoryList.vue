@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .box {
-  width: 700px;
+  width: 100%;
 }
 
 .tag {

@@ -1,19 +1,14 @@
 <template>
-  <div>
+  <div class="category-item">
     <span class="has-text-primary has-text-weight-bold">
-      <i class="fa fa-usd"></i> ...
+      <i class="fa fa-usd"></i>
     </span>
     <h2 class="has-text-weight-bold">
       <router-link
-        :to="'/best-sellers/dynamic-category'">
-        Go to category best sellers
+        :to="'/best-sellers/' + categoryItem.list_name_encoded">
+        {{ categoryItem.display_name }}
       </router-link>
-      <span
-        class="tag is-primary is-pulled-right has-text-white">
-          See list of best sellers 
-      </span>
     </h2>
-    <p>{{ categoryItem.display_name }}</p>
   </div>
 </template>
 
@@ -27,5 +22,8 @@ export default {
 <style scoped>
 .tag {
   cursor: pointer;
+}
+.category-item {
+    margin-bottom: 30px;
 }
 </style>

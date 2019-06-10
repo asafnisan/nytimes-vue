@@ -5,8 +5,8 @@
         <i class="fa fa-2x fa-user-circle"></i>
       </div>
       <div class="product-list">
-        <div class="product-list--item">
-          <BestSellersListItem />
+        <div v-for="bestSeller in bestSellersList" class="product-list--item">
+          <BestSellersListItem :bestSellerItem="bestSeller" :categoryName="categoryName"/>
         </div>
       </div>
     </div>
@@ -14,12 +14,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import BestSellersListItem from './BestSellersListItem.vue';
 
 export default {
   name: 'BestSellersList',
   components: {
     BestSellersListItem,
+  },
+  computed: {
+    ...mapGetters([
+      'bestSellersList'
+    ])
+  },
+  props: [
+      'categoryName'
+  ],
+  created() {
+      this.$store.dispatch('getBestSellersList', this.$props.categoryName);
+      console.log(this.bestSellersList)
   }
 }
 </script>
