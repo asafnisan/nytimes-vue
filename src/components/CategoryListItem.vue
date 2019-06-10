@@ -24,6 +24,6 @@ export default {
   cursor: pointer;
 }
 .category-item {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 </style>

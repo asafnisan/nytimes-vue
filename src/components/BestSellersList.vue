@@ -1,9 +1,6 @@
 <template>
   <div>
     <div id="products" class="box">
-      <div class="products--header has-text-centered">
-        <i class="fa fa-2x fa-user-circle"></i>
-      </div>
       <div class="product-list">
         <div v-for="bestSeller in bestSellersList" class="product-list--item">
           <BestSellersListItem :bestSellerItem="bestSeller" :categoryName="categoryName"/>
@@ -40,6 +37,8 @@ export default {
 
 <style scoped>
 .box {
+  padding-top: 10px;
+  padding-bottom: 10px;
   width: 700px
 }
 
