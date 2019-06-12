@@ -2,16 +2,31 @@
   <section id="product-item" class="box">
       <div class="product-item__details">
         <h1 class="title is-4">
-        <p>{{ item[0].book_details[0].title }}</p>
+        <p>{{ item.book_details[0].title }}</p>
+        <br>
         </h1>
-        <p class="product-item__description">{{ item[0].book_details[0].description }}</p>
+        <p class="product-item__created_at">
+        Author:
+        <span class="has-text-weight-bold">
+            {{ item.book_details[0].author }}
+        </span>
+        </p>
+        <p class="product-item__created_at">
+        Publisher:
+        <span class="has-text-weight-bold">
+            {{ item.book_details[0].publisher }}
+        </span>
+        </p>
         <p class="product-item__created_at">
         Published:
         <span class="has-text-weight-bold">
-            {{ item[0].published_date }}
+            {{ item.published_date }}
         </span>
         </p>
-        <a :href="item[0].amazon_product_url"> 
+        <p class="product-item__description">{{ item.book_details[0].description }}</p>
+        <br>
+        <br>
+        <a :href="item.amazon_product_url"> 
         <button 
             class="button is-primary product-item__button is-pulled-right"
             >See on Amazon
@@ -31,12 +46,7 @@ export default {
       'bestSellersList'
     ]),
     item() {
-        return this.bestSellersList.filter((item) => {
-            return item
-                .book_details[0]
-                .title.split(' ').join('-').toLowerCase() 
-                === this.$props.dynamicId
-        })
+        return this.$store.state.item.item;
     }
   },
   props: [
@@ -44,10 +54,10 @@ export default {
       'categoryName',
   ],
   created() {
-      console.log(this.$store.state.bestSellers.bestSellersList)
-      console.log(this.$props.dynamicId)
-      console.log('expected?:', this.$props.categoryName)
-      console.log(this.item[0])
+      this.$store.dispatch('getItem', { categoryName: this.$props.categoryName, dynamicId: this.$props.dynamicId });
+  },
+  destroyed() {
+      this.$store.dispatch('clearItemDetail');
   }
 }
 </script>

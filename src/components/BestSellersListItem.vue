@@ -40,10 +40,6 @@ export default {
             .book_details[0]
             .title.split(' ').join('-').toLowerCase()
       }
-  },
-  created() {
-      // console.log('thisss:', this.itemPath)
-      console.log('yo yo props:', this.$props.bestSellerItem);
   }
 }
 </script>

@@ -30,10 +30,8 @@ export default {
   ],
   created() {
       this.$store.dispatch('getBestSellersList', this.$props.categoryName);
-      console.log(this.bestSellersList)
   },
   destroyed() {
-    console.log('destroyed');
     this.$store.dispatch('clearBestSellersList');
   }
 }
