@@ -2,6 +2,7 @@
   <div>
     <div id="products" class="box">
       <div class="products--header has-text-centered">
+        Pick a category
         <i class="fa fa-2x fa-user-circle"></i>
       </div>
       <div class="product-list">
@@ -50,6 +51,6 @@ export default {
 }
 
 .product-list--item {
-  padding: 2px 0;
+  padding: 0px 0;
 }
 </style>

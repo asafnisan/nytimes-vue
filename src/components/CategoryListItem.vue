@@ -1,14 +1,11 @@
 <template>
   <div class="category-item">
-    <span class="has-text-primary has-text-weight-bold">
-      <i class="fa fa-usd"></i>
-    </span>
-    <h2 class="has-text-weight-bold">
+    <p class="has-text-weight-bold">
       <router-link
         :to="'/best-sellers/' + categoryItem.list_name_encoded">
         {{ categoryItem.display_name }}
       </router-link>
-    </h2>
+    </p>
   </div>
 </template>
 
@@ -20,10 +17,14 @@ export default {
 </script>
 
 <style scoped>
+.has-text-weight-bold {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
 .tag {
   cursor: pointer;
 }
 .category-item {
-    margin-bottom: 15px;
+    margin-bottom: 4px;
 }
 </style>
