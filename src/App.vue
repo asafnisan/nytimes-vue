@@ -7,9 +7,6 @@
 <script>
 export default {
   name: 'app',
-  created() {
-    this.$store.dispatch('getCategoryNames');
-  }
 }
 </script>
 

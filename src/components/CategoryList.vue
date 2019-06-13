@@ -28,6 +28,9 @@ export default {
     ...mapGetters([
       'categoryNamesList'
     ])
+  },
+  created() {
+    this.$store.dispatch('getCategoryNames');
   }
 }
 </script>

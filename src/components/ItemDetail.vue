@@ -1,5 +1,5 @@
 <template>
-  <section id="product-item" class="box">
+  <div id="product-item" class="box">
       <div class="product-item__details">
         <h1 class="title is-4">
         <p>{{ item.book_details[0].title }}</p>
@@ -33,7 +33,7 @@
         </button>
         </a>
       </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -54,7 +54,9 @@ export default {
       'categoryName',
   ],
   created() {
-      this.$store.dispatch('getItem', { categoryName: this.$props.categoryName, dynamicId: this.$props.dynamicId });
+      this.$store.dispatch('getItem', 
+        { categoryName: this.$props.categoryName, dynamicId: this.$props.dynamicId }
+      );
   },
   destroyed() {
       this.$store.dispatch('clearItemDetail');
