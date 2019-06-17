@@ -1,7 +1,6 @@
 <template>
   <div id="product-item" class="box">
-      hello
-      <!-- <div v-if="item.book_details"class="product-item__details">
+      <div v-if="item.book_details"class="product-item__details">
         <h1 class="title is-4">
         <p>{{ item.book_details[0].title }}</p>
         <br>
@@ -33,7 +32,7 @@
             >See on Amazon
         </button>
         </a>
-      </div> -->
+      </div>
   </div>
 </template>
 
