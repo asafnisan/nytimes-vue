@@ -20,7 +20,7 @@ const router = new VueRouter({
             props: true,
         },
         {
-            path: '/best-sellers/:categoryName/:dynamicId',
+            path: '/best-sellers/:categoryName/:dynamicId/:selectedDate',
             component: ItemDetail,
             props: true,
         },

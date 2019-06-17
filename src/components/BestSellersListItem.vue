@@ -3,7 +3,7 @@
   <div class="box">
     <div class="cart-item__details">
       <router-link
-        :to="'/best-sellers/' + categoryName + '/' +  itemPath">
+        :to="'/best-sellers/' + categoryName + '/' +  itemPath + '/' + selectedDate">
         {{ bestSellerItem.book_details[0].title }}
       </router-link>
       <span class="tag product-item__tag is-pulled-right">Rank: {{ bestSellerItem.rank }}</span>
@@ -31,15 +31,16 @@ export default {
   props: [
       'bestSellerItem',
       'categoryName',
+      'selectedDate'
   ],
   computed: {
-      itemPath() {
-          return this
-            .$props
-            .bestSellerItem
-            .book_details[0]
-            .title.split(' ').join('-').toLowerCase()
-      }
+    itemPath() {
+        return this
+          .$props
+          .bestSellerItem
+          .book_details[0]
+          .title.split(' ').join('-').toLowerCase()
+    }
   }
 }
 </script>

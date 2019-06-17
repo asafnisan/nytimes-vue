@@ -6,17 +6,26 @@
           v-model="date" 
           placeholder="Select a date"
           class="input date"
-          @on-close="doSomething"
+          @on-close="selectDate"
         ></flat-pickr>
       </div>
     </div>
     <div id="products" class="box">
-      <span v-if="date">Displaying the list of best sellers for {{ date }}</span>
-      <span v-else="date">Displaying the most recent list of best sellers </span>
-      <div class="product-list">
-        <div v-for="bestSeller in bestSellersList" class="product-list--item">
-          <BestSellersListItem :bestSellerItem="bestSeller" :categoryName="categoryName"/>
+      <div v-if="bestSellersError === ''">
+        <span v-if="date">Displaying the list of best sellers for {{ date }}</span>
+        <span v-else="date">Displaying the most recent list of best sellers </span>
+        <div class="product-list">
+          <div v-for="bestSeller in bestSellersList" class="product-list--item">
+            <BestSellersListItem 
+              :bestSellerItem="bestSeller" 
+              :categoryName="categoryName"
+              :selectedDate="date"
+            />
+          </div>
         </div>
+      </div>
+      <div v-else>
+        <span id="error">{{ bestSellersError }}</span>
       </div>
     </div>
   </div>
@@ -37,11 +46,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'bestSellersList'
+      'bestSellersList',
+      'bestSellersError'
     ])
   },
   props: [
-      'categoryName'
+      'categoryName',
   ],
   created() {
       this.$store.dispatch('getBestSellersList', 
@@ -50,7 +60,6 @@ export default {
           date: this.date
         }
       );
-      console.log(this.date);
   },
   destroyed() {
     this.$store.dispatch('clearBestSellersList');
@@ -61,7 +70,7 @@ export default {
       }
   },
   methods: {
-    doSomething(e) {
+    selectDate(e) {
       this.date = e;
       this.$store.dispatch('getBestSellersList', 
         { 
@@ -69,12 +78,16 @@ export default {
           date: e
         }
       );
+      // console.log(this.$props.selectedDate);
     }
   }
 }
 </script>
 
 <style scoped>
+#error {
+  color: salmon;
+}
 .date {
   width: 150px;
 }

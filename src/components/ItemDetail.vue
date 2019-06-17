@@ -1,6 +1,7 @@
 <template>
   <div id="product-item" class="box">
-      <div class="product-item__details">
+      hello
+      <!-- <div v-if="item.book_details"class="product-item__details">
         <h1 class="title is-4">
         <p>{{ item.book_details[0].title }}</p>
         <br>
@@ -32,7 +33,7 @@
             >See on Amazon
         </button>
         </a>
-      </div>
+      </div> -->
   </div>
 </template>
 
@@ -52,10 +53,19 @@ export default {
   props: [
       'dynamicId',
       'categoryName',
+      'selectedDate',
   ],
   created() {
+      if (this.$props.selectedDate !== null) {
+          console.log('here is the selected date:', this.$props.selectedDate);
+      };
+      if(this.$props.selectedDate)
       this.$store.dispatch('getItem', 
-        { categoryName: this.$props.categoryName, dynamicId: this.$props.dynamicId }
+        { 
+            categoryName: this.$props.categoryName, 
+            dynamicId: this.$props.dynamicId,
+            selectedDate: this.$props.selectedDate
+        }
       );
   },
   destroyed() {

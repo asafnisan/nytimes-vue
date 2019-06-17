@@ -24,11 +24,15 @@ function responseFormatter(response) {
 
 const state = {
     bestSellersList: [],
+    bestSellersError: '',
 }
 
 const mutations = {
     UPDATE_BEST_SELLERS_LIST(state, payload) {
         state.bestSellersList = payload;
+    },
+    UPDATE_BEST_SELLERS_ERROR_MESSAGE(state, err) {
+        state.bestSellersError = err;
     }
 }
 
@@ -38,28 +42,46 @@ const actions = {
             let date = JSON.stringify(params.date[0])
                 .split('T')[0]
                 .split('"')[1];
-            console.log(date);
-            axios.get(`https://api.nytimes.com/svc/books/v3/lists/${date}/${params.categoryName}.json?api-key=${API_KEY}`
-            )
+            axios.get(`https://api.nytimes.com/svc/books/v3/lists/${date}/${params.categoryName}.json?api-key=${API_KEY}`)
             .then((response) => {
                 let formattedResponse = responseFormatter(response.data.results.books);
+                commit('UPDATE_BEST_SELLERS_ERROR_MESSAGE', '');
                 commit('UPDATE_BEST_SELLERS_LIST', formattedResponse);
+            })
+            .catch((error) => {
+                if(error.response.data.errors !== undefined) {
+                    const err = error.response.data.errors[0]
+                    commit('UPDATE_BEST_SELLERS_ERROR_MESSAGE', err);
+                    return;
+                }
+                if (error.response.data.fault.faultstring) {
+                    const err = error.response.data.fault.faultstring.split('Identifier')[0];
+                    commit('UPDATE_BEST_SELLERS_ERROR_MESSAGE', err);
+                    return;
+                }
             });
         } else {
             axios.get(`https://api.nytimes.com/svc/books/v3/lists.json?list=${params.categoryName}&api-key=${API_KEY}`)
             .then((response) => {
-                console.log(response.data.results);
                 commit('UPDATE_BEST_SELLERS_LIST', response.data.results);
+            }).catch((error) => {
+                if (error.response.data.fault.faultstring) {
+                    const err = error.response.data.fault.faultstring.split('Identifier')[0];
+                    commit('UPDATE_BEST_SELLERS_ERROR_MESSAGE', err);
+                    return;
+                }
             });
         }
     },
     clearBestSellersList({ commit }) {
         commit('UPDATE_BEST_SELLERS_LIST', []);
+        commit('UPDATE_BEST_SELLERS_ERROR_MESSAGE', '');
     }
 }
 
 const getters = {
     bestSellersList: state => state.bestSellersList,
+    bestSellersError: state => state.bestSellersError,
 }
 
 const bestSellersModule = {
