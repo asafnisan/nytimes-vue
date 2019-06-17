@@ -10,12 +10,13 @@
         ></flat-pickr>
       </div>
     </div>
-    <div id="products" class="box">
+    <div class="box">
       <div v-if="bestSellersError === ''">
         <span v-if="date">Displaying the list of best sellers for {{ date }}</span>
         <span v-else="date">Displaying the most recent list of best sellers </span>
         <div class="product-list">
-          <div v-for="bestSeller in bestSellersList" class="product-list--item">
+          <div v-for="bestSeller in bestSellersListInChunks[selectedPageIndex]" 
+            class="product-list--item">
             <BestSellersListItem 
               :bestSellerItem="bestSeller" 
               :categoryName="categoryName"
@@ -23,6 +24,20 @@
             />
           </div>
         </div>
+        <nav class="pagination" role="navigation" aria-label="pagination">
+          <ul class="pagination-list">
+            <li v-for="(list, index) in bestSellersListInChunks.length">
+              <a 
+                v-bind:class="{ 'is-current': index === selectedPageIndex }"
+                @click="handlePaginationClick(index)"
+                class="pagination-link" 
+                aria-label="Goto page 1">{{ index + 1 }}</a>
+            </li>
+            <!-- <li>
+              <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">3</a>
+            </li> -->
+          </ul>
+        </nav>
       </div>
       <div v-else>
         <span id="error">{{ bestSellersError }}</span>
@@ -48,7 +63,25 @@ export default {
     ...mapGetters([
       'bestSellersList',
       'bestSellersError'
-    ])
+    ]),
+    bestSellersListInChunks() {
+      const listLength = this.bestSellersList.length;
+      const bestSellersList = this.bestSellersList;
+      var chunkifiedBestSellersList = [];
+      for(var j = 0; j < Math.ceil(listLength / 5); j++) {
+        var chunk = [];
+        chunkifiedBestSellersList.push(chunk);
+      }
+      var i = 0;
+      chunkifiedBestSellersList = chunkifiedBestSellersList.map((chunk) => {
+        for(var k = 0; k < 5; k++) {
+          chunk.push(bestSellersList[i]);
+          i++;
+        }
+        return chunk;
+      });
+      return chunkifiedBestSellersList
+    }
   },
   props: [
       'categoryName',
@@ -67,6 +100,7 @@ export default {
   data() {
       return {
         date: null,
+        selectedPageIndex: 0,
       }
   },
   methods: {
@@ -78,7 +112,9 @@ export default {
           date: e
         }
       );
-      // console.log(this.$props.selectedDate);
+    },
+    handlePaginationClick(index) {
+      this.selectedPageIndex = index ;
     }
   }
 }

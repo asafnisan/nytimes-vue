@@ -20,7 +20,7 @@ function responseFormatter(response) {
                     title: book.title,
                     author: book.author,
                     publisher: book.publisher,
-                    description: book.description,
+                    description: book.description === '' ? 'N/A' :book.description,
 
                 }
             ],
@@ -42,21 +42,16 @@ const mutations = {
 
 const actions = {
     getItem({ commit }, params) {
-        console.log('jesus christ what is going on in here?', params);
-        console.log('jesus christ what is going on in here? here is the selected date', params.selectedDate);
         if (params.selectedDate !== "null") {
             return axios.get(`https://api.nytimes.com/svc/books/v3/lists/${params.selectedDate}/${params.categoryName}.json?api-key=${API_KEY}`)
                 .then((response) => {
-                    console.log('printing the call result:', responseFormatter(response.data.results.books));
                     const formattedResponse = responseFormatter(response.data.results.books);
                     const result = getItemFromBestSellersList(params.dynamicId, formattedResponse);
-                    console.log('here is the formatted result:', formattedResponse);
                     commit('UPDATE_ITEM', result[0]);
                 })
         } else {
             return axios.get(`https://api.nytimes.com/svc/books/v3/lists.json?list=${params.categoryName}&api-key=${API_KEY}`)
                 .then((response) => {
-                    console.log('printing the call result without date:', response.data.results);
                     const result = getItemFromBestSellersList(params.dynamicId, response.data.results);
                     commit('UPDATE_ITEM', result[0]);
                 });

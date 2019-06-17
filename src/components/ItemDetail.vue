@@ -55,9 +55,6 @@ export default {
       'selectedDate',
   ],
   created() {
-      if (this.$props.selectedDate !== null) {
-          console.log('here is the selected date:', this.$props.selectedDate);
-      };
       if(this.$props.selectedDate)
       this.$store.dispatch('getItem', 
         { 

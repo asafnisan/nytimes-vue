@@ -18,6 +18,7 @@ function responseFormatter(response) {
             ],
             published_date: 'N/A',
             amazon_product_url: book.amazon_product_url,
+            rank: book.rank,
         }
     })
 }
@@ -44,6 +45,7 @@ const actions = {
                 .split('"')[1];
             axios.get(`https://api.nytimes.com/svc/books/v3/lists/${date}/${params.categoryName}.json?api-key=${API_KEY}`)
             .then((response) => {
+                console.log(response.data.results);
                 let formattedResponse = responseFormatter(response.data.results.books);
                 commit('UPDATE_BEST_SELLERS_ERROR_MESSAGE', '');
                 commit('UPDATE_BEST_SELLERS_LIST', formattedResponse);
