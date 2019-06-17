@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 .has-text-weight-bold {
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: 0px;
 }
 .tag {

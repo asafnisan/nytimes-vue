@@ -1,19 +1,22 @@
 <template>
   <div id="list">
-    <div class="navigation-buttons">
-      <div class="is-pulled-left">
-        <flat-pickr 
-          v-model="date" 
-          placeholder="Select a date"
-          class="input date"
-          @on-close="selectDate"
-        ></flat-pickr>
+    <div id="date-picker" class="box is-pulled-left">
+      <span id="date-label">Pick a date:</span>
+      <div class="navigation-buttons">
+        <div>
+          <flat-pickr 
+            v-model="date" 
+            placeholder="Select a date"
+            class="input date"
+            @on-close="selectDate"
+          ></flat-pickr>
+        </div>
       </div>
     </div>
     <div class="box">
       <div v-if="bestSellersError === ''">
-        <span v-if="date">Displaying the list of best sellers for {{ date }}</span>
-        <span v-else="date">Displaying the most recent list of best sellers </span>
+        <span v-if="date" class="tag product-item__tag">Displaying the list of best sellers for {{ date }} // Category: {{ category }}</span>
+        <span v-else="date" class="tag product-item__tag">Displaying the most recent list of best sellers // Category: {{ category }}</span>
         <div class="product-list">
           <div v-for="bestSeller in bestSellersListInChunks[selectedPageIndex]" 
             class="product-list--item">
@@ -81,6 +84,9 @@ export default {
         return chunk;
       });
       return chunkifiedBestSellersList
+    },
+    category() {
+      return this.$props.categoryName.toUpperCase().split('-').join(' ')
     }
   },
   props: [
@@ -121,6 +127,25 @@ export default {
 </script>
 
 <style scoped>
+.pagination {
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+#date-label {
+  position: absolute;
+  top: 5px;
+  z-index: 99;
+  left: 10px
+}
+#date-picker {
+  width: 170px;
+  position: relative;
+  top: -275px;
+  z-index: 99;
+  height: 80px;
+  left: -20px
+}
 #error {
   color: salmon;
 }
@@ -159,7 +184,8 @@ export default {
 
 .navigation-buttons {
   position: absolute;
-  top: 5px;
+  top: 35px;
+  left: 10px;
   width: 99%;
   z-index: 99;
 }

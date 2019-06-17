@@ -40,7 +40,9 @@ const mutations = {
 const actions = {
     getBestSellersList({ commit }, params) {
         if(params.date){
-            let date = JSON.stringify(params.date[0])
+            var dateTemp = params.date;
+            var newDate = new Date(Date.UTC(dateTemp[0].getFullYear(), dateTemp[0].getMonth(), dateTemp[0].getDate()));
+            let date = JSON.stringify(newDate)
                 .split('T')[0]
                 .split('"')[1];
             axios.get(`https://api.nytimes.com/svc/books/v3/lists/${date}/${params.categoryName}.json?api-key=${API_KEY}`)

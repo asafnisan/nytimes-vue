@@ -2,7 +2,7 @@
   <div>
     <div id="products" class="box">
       <div class="products--header has-text-centered">
-        Pick a category
+        <span class="tag product-item__tag">Pick a category</span>
         <i class="fa fa-2x fa-user-circle"></i>
       </div>
       <div class="product-list">
